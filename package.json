@@ -1,0 +1,11 @@
+{
+  "name": "dokapon-kingdom-tools",
+  "private": true,
+  "scripts": {
+    "build:css": "sass --no-source-map --style=compressed src/scss/style.scss website/assets/css/style.css",
+    "watch:css": "sass --watch --no-source-map src/scss/style.scss:website/assets/css/style.css"
+  },
+  "devDependencies": {
+    "sass": "^1.0.0"
+  }
+}

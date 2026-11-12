@@ -1,0 +1,28 @@
+@use "sass:color" as c;
+
+@import url(https://fonts.bunny.net/css?family=alexandria:100,200,300,400,500,600,700,800,900);
+@import "themes";
+
+$paddingSafe: 20px;
+
+// ==========================================
+// Default
+// ==========================================
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+
+	&::selection {
+		background-color: var(--primary);
+		color: var(--background);
+	}
+}
+
+body {
+	font-family: "alexandria", sans-serif;
+
+	background-color: var(--background);
+	color: var(--foreground);
+}

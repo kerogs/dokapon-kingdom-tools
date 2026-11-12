@@ -1,0 +1,258 @@
+// =============================================
+// _theme.scss - Dokapon
+// =============================================
+// Usage:
+//   Dark mode  -> add .theme--dark on <html>
+//   Variant    -> add .prim--blue / .prim--red / .prim--green / .prim--purple / .prim--mono on <html>
+//   No variant -> golden primary (fantasy gold), backgrounds lightly tinted night blue
+//
+// Each variant also lightly tints the backgrounds (background, surface,
+// card, popover, border, muted, foreground), in both light and dark.
+// =============================================
+
+// -- Generates --x and --x-rgb
+@mixin color-var($name, $color) {
+	--#{$name}: #{$color};
+	--#{$name}-rgb: #{red($color)}, #{green($color)}, #{blue($color)};
+}
+
+// -- Alias of an existing color (automatically follows the variant / theme)
+@mixin alias-var($name, $target) {
+	--#{$name}: var(--#{$target});
+	--#{$name}-rgb: var(--#{$target}-rgb);
+}
+
+// -- Theme neutrals (backgrounds, borders, texts), tinted depending on the variant
+@mixin neutrals($background, $surface, $card, $popover, $border, $muted, $muted-fg, $foreground) {
+	@include color-var(background, $background);
+	@include color-var(surface, $surface);
+	@include color-var(card, $card);
+	@include color-var(popover, $popover);
+	@include color-var(border, $border);
+	@include color-var(input, $border);
+	@include color-var(muted, $muted);
+	@include color-var(muted-fg, $muted-fg);
+	@include color-var(foreground, $foreground);
+	@include color-var(surface-fg, $foreground);
+	@include color-var(card-fg, $foreground);
+	@include color-var(popover-fg, $foreground);
+}
+
+// -- Light theme (default): golden primary, very pale night blue neutrals
+:root {
+	@include neutrals(#fbfbfe, #f4f4fb, #ffffff, #ffffff, #e0e1ee, #ecedf6, #666a8a, #14162a);
+	@include color-var(primary, #c28a10);
+	@include color-var(primary-fg, #241d10);
+	@include color-var(primary-muted, #fbf1d9);
+	@include alias-var(ring, primary);
+	--filter: brightness(0) saturate(100%);
+	--filter-prim: brightness(0) saturate(100%) invert(80%) sepia(33%) saturate(5178%) hue-rotate(0deg) brightness(80%)
+		contrast(88%);
+
+	// -- Base
+	@include color-var(white, #ffffff);
+	@include color-var(black, #000000);
+
+	// -- Secondary & accent (fixed, same in light and dark)
+	@include color-var(secondary, #5f6597);
+	@include color-var(secondary-fg, #ffffff);
+	@include color-var(secondary-muted, #e9eaf5);
+	@include color-var(accent, #7453b5);
+	@include color-var(accent-fg, #ffffff);
+	@include color-var(accent-muted, #efeaf9);
+
+	// -- Global colors (fixed, outside the theme): slightly darkened to stay readable on light backgrounds
+	@include color-var(red, #d8343d);
+	@include color-var(green, #198a50);
+	@include color-var(yellow, #e3b420);
+	@include color-var(blue, #2f78d6);
+	@include color-var(purple, #8a52d6);
+	@include color-var(pink, #cc3a82);
+	@include color-var(orange, #e06c1f);
+	@include color-var(cyan, #129fae);
+
+	// -- Text on global colors
+	@include color-var(red-fg, #ffffff);
+	@include color-var(green-fg, #ffffff);
+	@include color-var(yellow-fg, #30270d);
+	@include color-var(blue-fg, #ffffff);
+	@include color-var(purple-fg, #ffffff);
+	@include color-var(pink-fg, #ffffff);
+	@include color-var(orange-fg, #311d0f);
+	@include color-var(cyan-fg, #0e2b30);
+
+	// -- Muted variants (notification background, badge, etc.)
+	@include color-var(red-muted, #fdeeef);
+	@include color-var(green-muted, #edf8f2);
+	@include color-var(yellow-muted, #fdf6e1);
+	@include color-var(blue-muted, #ecf3fc);
+	@include color-var(purple-muted, #f3edfc);
+	@include color-var(pink-muted, #fcedf4);
+	@include color-var(orange-muted, #fdf0e6);
+	@include color-var(cyan-muted, #e8f6f8);
+
+	// -- Semantic feedback (aliases of the global colors)
+	@include alias-var(success, green);
+	@include alias-var(success-fg, green-fg);
+	@include alias-var(success-muted, green-muted);
+	@include alias-var(danger, red);
+	@include alias-var(danger-fg, red-fg);
+	@include alias-var(danger-muted, red-muted);
+	@include alias-var(warning, yellow);
+	@include alias-var(warning-fg, yellow-fg);
+	@include alias-var(warning-muted, yellow-muted);
+	@include alias-var(info, blue);
+	@include alias-var(info-fg, blue-fg);
+	@include alias-var(info-muted, blue-muted);
+
+	// -- Effects
+	@include color-var(overlay, #141626);
+	@include color-var(shadow, #000000);
+	--radius-sm: 4px;
+	--radius-md: 8px;
+	--radius-lg: 12px;
+	--radius-xl: 18px;
+}
+
+// -- Dark theme: deep night blue, bright golden primary (fantasy gold)
+.theme--dark {
+	@include neutrals(#141626, #1d2034, #22253c, #272a43, #454864, #30334b, #a6a9be, #f2f1fa);
+	@include color-var(primary, #efbe4b);
+	@include color-var(primary-fg, #241d10);
+	@include color-var(primary-muted, #4d3e26);
+	--filter: brightness(0) saturate(100%) invert(96%) sepia(0%) saturate(2%) hue-rotate(105deg) brightness(108%)
+		contrast(101%);
+	--filter-prim: brightness(0) saturate(100%) invert(85%) sepia(97%) saturate(7169%) hue-rotate(318deg) brightness(96%)
+		contrast(94%);
+
+	// -- Secondary & accent (only the muted ones change)
+	@include color-var(secondary-muted, #303451);
+	@include color-var(accent-muted, #392b55);
+
+	// -- Brighter colors on dark backgrounds
+	@include color-var(red, #e84b52);
+	@include color-var(green, #43be7d);
+	@include color-var(yellow, #f7d24d);
+	@include color-var(blue, #4c91eb);
+	@include color-var(purple, #a370e6);
+	@include color-var(pink, #eb6faa);
+	@include color-var(orange, #f58b41);
+	@include color-var(cyan, #49cdd7);
+
+	// -- Text on global colors
+	@include color-var(red-fg, #ffffff);
+	@include color-var(green-fg, #0f281b);
+	@include color-var(yellow-fg, #30270d);
+	@include color-var(blue-fg, #ffffff);
+	@include color-var(purple-fg, #ffffff);
+	@include color-var(pink-fg, #301424);
+	@include color-var(orange-fg, #311d0f);
+	@include color-var(cyan-fg, #0e2b30);
+
+	// -- Dark muted variants
+	@include color-var(red-muted, #4c2530);
+	@include color-var(green-muted, #234939);
+	@include color-var(yellow-muted, #534524);
+	@include color-var(blue-muted, #253a5b);
+	@include color-var(purple-muted, #412e5e);
+	@include color-var(pink-muted, #552b43);
+	@include color-var(orange-muted, #563420);
+	@include color-var(cyan-muted, #234d53);
+
+	// -- Effects
+	@include color-var(overlay, #080913);
+}
+
+// -- Variants (optional): replace the golden primary AND tint the backgrounds
+// primary-muted = very light tint (badge background, hover, selection)
+// The .theme--dark.prim--x rules come after to win on specificity.
+// --ring automatically follows the primary of the variant.
+
+// -- Monochrome: black & white, slightly cool neutrals
+.prim--mono {
+	@include neutrals(#ffffff, #f8f8fb, #ffffff, #ffffff, #e4e4ec, #f0f0f5, #70728a, #0b0c18);
+	@include color-var(primary, #0b0c18);
+	@include color-var(primary-fg, #ffffff);
+	@include color-var(primary-muted, #ececf3);
+	--filter-prim: brightness(0) saturate(100%);
+}
+.theme--dark.prim--mono {
+	@include neutrals(#0b0c12, #12131c, #171925, #1c1e2b, #2a2c3d, #1f2130, #8b8da3, #f4f4fa);
+	@include color-var(primary, #f2f1fa);
+	@include color-var(primary-fg, #141626);
+	@include color-var(primary-muted, #2a2c3d);
+	--filter-prim: brightness(0) saturate(100%) invert(96%) sepia(0%) saturate(2%) hue-rotate(105deg) brightness(108%)
+		contrast(101%);
+}
+
+// -- Blue: backgrounds lightly azure
+.prim--blue {
+	@include neutrals(#fbfcfe, #f4f7fb, #ffffff, #ffffff, #e0e6ee, #ecf0f6, #66758a, #141d2a);
+	@include color-var(primary, #2f78d6);
+	@include color-var(primary-fg, #ffffff);
+	@include color-var(primary-muted, #e8f0fb);
+	--filter-prim: brightness(0) saturate(100%) invert(30%) sepia(91%) saturate(4221%) hue-rotate(213deg) brightness(114%)
+		contrast(68%);
+}
+.theme--dark.prim--blue {
+	@include neutrals(#181c22, #23282e, #282e36, #2e343c, #4d535c, #373c44, #acb1b8, #f3f5f8);
+	@include color-var(primary, #4c91eb);
+	@include color-var(primary-fg, #ffffff);
+	@include color-var(primary-muted, #253a5b);
+	--filter-prim: brightness(0) saturate(100%) invert(27%) sepia(82%) saturate(6271%) hue-rotate(231deg) brightness(195%)
+		contrast(84%);
+}
+
+// -- Red: backgrounds lightly pinkish
+.prim--red {
+	@include neutrals(#fefbfb, #fbf4f5, #ffffff, #ffffff, #eee0e1, #f6eced, #8a6669, #2a1416);
+	@include color-var(primary, #d8343d);
+	@include color-var(primary-fg, #ffffff);
+	@include color-var(primary-muted, #fbeaec);
+	--filter-prim: brightness(0) saturate(100%) invert(19%) sepia(46%) saturate(1223%) hue-rotate(314deg) brightness(169%)
+		contrast(118%);
+}
+.theme--dark.prim--red {
+	@include neutrals(#221819, #2e2324, #36282a, #3c2e2f, #5c4d4e, #443738, #b8acad, #f8f3f4);
+	@include color-var(primary, #e84b52);
+	@include color-var(primary-fg, #ffffff);
+	@include color-var(primary-muted, #4c2530);
+	--filter-prim: brightness(0) saturate(100%) invert(22%) sepia(92%) saturate(1492%) hue-rotate(333deg) brightness(143%)
+		contrast(82%);
+}
+
+// -- Green: backgrounds lightly greenish
+.prim--green {
+	@include neutrals(#fbfefc, #f4fbf8, #ffffff, #ffffff, #e0eee7, #ecf6f1, #668a78, #142a1f);
+	@include color-var(primary, #198a50);
+	@include color-var(primary-fg, #ffffff);
+	@include color-var(primary-muted, #e7f6ee);
+	--filter-prim: brightness(0) saturate(100%) invert(99%) sepia(65%) saturate(4240%) hue-rotate(69deg) brightness(55%)
+		contrast(89%);
+}
+.theme--dark.prim--green {
+	@include neutrals(#18221d, #232e28, #28362f, #2e3c35, #4d5c54, #37443e, #acb8b2, #f3f8f5);
+	@include color-var(primary, #43be7d);
+	@include color-var(primary-fg, #0f281b);
+	@include color-var(primary-muted, #234939);
+	--filter-prim: brightness(0) saturate(100%) invert(73%) sepia(55%) saturate(4238%) hue-rotate(89deg) brightness(177%)
+		contrast(49%);
+}
+
+// -- Purple: backgrounds lightly lavender
+.prim--purple {
+	@include neutrals(#fcfbfe, #f7f4fb, #ffffff, #ffffff, #e7e0ee, #f1ecf6, #77668a, #1e142a);
+	@include color-var(primary, #8a52d6);
+	@include color-var(primary-fg, #ffffff);
+	@include color-var(primary-muted, #f0e9fb);
+	--filter-prim: brightness(0) saturate(100%) invert(22%) sepia(50%) saturate(5129%) hue-rotate(256deg) brightness(110%)
+		contrast(68%);
+}
+.theme--dark.prim--purple {
+	@include neutrals(#1d1822, #28232e, #2f2836, #352e3c, #544d5c, #3d3744, #b2acb8, #f5f3f8);
+	@include color-var(primary, #a370e6);
+	@include color-var(primary-fg, #ffffff);
+	@include color-var(primary-muted, #412e5e);
+	--filter-prim: brightness(0) saturate(100%) invert(54%) sepia(98%) saturate(3520%) hue-rotate(233deg) brightness(104%)
+		contrast(80%);
+}
