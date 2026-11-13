@@ -1074,3 +1074,15 @@ aside ul li.link.active {
   stroke: var(--primary);
   stroke-width: 4px;
 }
+
+.navmap {
+  border: 12px solid var(--red);
+  border-radius: var(--radius-xl);
+  background-color: var(--red);
+  margin: 20px 0;
+}
+.navmap > div {
+  border-radius: var(--radius-lg);
+  background-color: #fef594;
+  box-shadow: inset 0 0 14px 8px #eb931c;
+}
