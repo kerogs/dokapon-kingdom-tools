@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.0](https://github.com/kerogs/dokapon-kingdom-tools/compare/v0.4.1...v0.5.0) (2026-11-13)
+
+
+### Features
+
+* improve charts layout and add page title ([3f46fea](https://github.com/kerogs/dokapon-kingdom-tools/commit/3f46feace43639963aa99d11e5c410f3b2190dd4))
+* **map:** add interactive map with search by area ([ed3556c](https://github.com/kerogs/dokapon-kingdom-tools/commit/ed3556c7e54a15c323d9c7b589dbd315ff7ce5d5))
+
+
+### Bug Fixes
+
+* automatically capitalize item image filenames ([9b34230](https://github.com/kerogs/dokapon-kingdom-tools/commit/9b3423036166a7b5d576a94a9b3af9c56c3f1944))
+
 ## [0.4.1](https://github.com/kerogs/dokapon-kingdom-tools/compare/v0.4.0...v0.4.1) (2026-11-13)
 
 
