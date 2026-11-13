@@ -1,13 +1,549 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+	<base href="">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Dokapon Kingdom Tools</title>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tabulator-tables@6/dist/css/tabulator_simple.min.css">
+	<link rel="stylesheet" href="./assets/css/style.css">
+
+	<link rel="shortcut icon" href="./assets/images/icon.webp" type="image/x-icon">
 </head>
+
 <body>
 
-	
+	<div class="container">
+		<!-- ! header -->
+		<header>
+			<nav>
+				<ul>
+					<li class="logo">
+						<a href="/">
+							<img src="./assets/images/banner.webp" alt="">
+						</a>
+					</li>
+				</ul>
+				<ul>
+					<a href="https://github.com/kerogs/dokapon-kingdom-tools" target="_blank">
+						<li class="icon">
+							<div>
+								<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+									<title>GitHub</title>
+									<path
+										d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+								</svg>
+								<p>Github</p>
+							</div>
+						</li>
+					</a>
+
+				</ul>
+			</nav>
+		</header>
+
+		<!-- ! Content -->
+		<div class="content">
+			<div class="content__inner">
+				<aside>
+					<ul>
+						<li class="title">
+							<p class="text-dokapon">Tools</p>
+						</li>
+						<li class="link active">
+							<a href="/">
+								<p>
+									<img src="./assets/images/game/items/Lagenes_Cake.webp"
+										alt="Lagenes Cake Sprite Connect">
+									Local Items
+								</p>
+							</a>
+						</li>
+					</ul>
+				</aside>
+
+
+				<div class="separator"></div>
+
+				<!-- ! Main -->
+				<main>
+
+					<!-- table -->
+					<div id="items"></div>
+
+					<div class="chartsSep">
+						<div class="left">
+							<div id="chart-top"></div>
+						</div>
+						<div class="right">
+							<div id="chart-actions"></div>
+						</div>
+						<div class="left">
+							<div id="chart-towns"></div>
+						</div>
+						<div class="right">
+							<div id="chart-scatter"></div>
+						</div>
+						<div class="wide">
+							<div id="chart-3d"></div>
+						</div>
+					</div>
+
+				</main>
+			</div>
+			<footer>
+				<hr class="sep">
+				<center>
+					v<span id="webversion">???</span> - <a href="">Github</a>. License MIT
+				</center>
+			</footer>
+		</div>
+
+	</div>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/tabulator-tables@6/dist/js/tabulator.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@6/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+<script src="./assets/js/main.js"></script>
+<script>
+	// Tabulator script
+	const ACTIONS = { king: 'Give to King', eat: 'Consume', sell: 'Sell' };
+	const CHEAP_PERCENTILE = 0.5; // the cheaper half of the consumable items
+
+	// Castle gems and the Black Diamond cannot be consumed
+	const UNUSABLE = new Set([
+		'Jade', 'Ruby', 'Sapphire', 'Emerald', 'Tourmaline', 'Diamond', 'Opal', 'Black Diamond'
+	]);
+
+	function computeActions(items) {
+		const prices = items
+			.filter(i => !UNUSABLE.has(i.name))
+			.map(i => i.price)
+			.sort((a, b) => a - b);
+		const cheapLimit = prices[Math.floor(prices.length * CHEAP_PERCENTILE)];
+
+		return items.map(item => {
+			let action;
+			if (item.localValue > 0) action = 'king'; // raises the final score
+			else if (UNUSABLE.has(item.name)) action = 'sell'; // negative and not consumable
+			else if (item.price <= cheapLimit) action = 'eat';  // selling would earn almost nothing
+			else action = 'sell'; // gold for equipment
+			return { ...item, action };
+		});
+	}
+
+	// Replaces any previous action-* class on an element
+	function setActionClass(el, action) {
+		el.classList.remove('action-king', 'action-eat', 'action-sell');
+		el.classList.add('action-' + action);
+	}
+
+
+	const table = new Tabulator('#items', {
+		ajaxURL: './assets/data/items.json',
+		ajaxResponse: (url, params, response) => computeActions(response),
+		layout: 'fitColumns',
+		pagination: true,
+		paginationSize: 15,
+		placeholder: 'No items found',
+		columnDefaults: { resizable: false },
+
+		columns: [
+			{
+				title: 'Name',
+				field: 'name',
+				headerFilter: 'input',
+				headerFilterPlaceholder: 'Search...',
+				formatter: (cell) => {
+					const name = cell.getValue();
+					const file = encodeURI(name.replace(/ /g, '_')).toLowerCase();
+					return `<img class="item-icon" src="./assets/images/game/items/${file}.webp"
+                    loading="lazy" alt=""
+                    onerror="this.style.visibility='hidden'"> ${name}`;
+				}
+			},
+
+			{
+				title: 'Price',
+				field: 'price',
+				sorter: 'number',
+				headerFilter: 'input'
+			},
+
+			{
+				title: 'Local Value',
+				field: 'localValue',
+				sorter: 'number',
+				headerFilter: 'input',
+				formatter: (cell) => {
+					const v = cell.getValue();
+					const el = cell.getElement();
+					el.classList.remove('is-pos', 'is-neg');
+					el.classList.add(v > 0 ? 'is-pos' : 'is-neg');
+					return v;
+				}
+			},
+
+			{
+				title: 'Acquisition',
+				field: 'acquisition',
+				headerFilter: 'input',
+				cellClick: (e, cell) => {
+					table.setFilter('acquisition', '=', cell.getValue());
+				}
+			},
+
+			{
+				title: 'Best action',
+				field: 'action',
+				headerFilter: 'list',
+				headerFilterPlaceholder: 'All',
+				headerFilterParams: {
+					values: ACTIONS,
+					autocomplete: false,
+					clearable: true
+				},
+				formatter: (cell) => {
+					setActionClass(cell.getElement(), cell.getValue());
+					return ACTIONS[cell.getValue()];
+				},
+				cellClick: (e, cell) => {
+					table.setFilter('action', '=', cell.getValue());
+				}
+			}
+		],
+
+		rowFormatter: (row) =>
+			setActionClass(row.getElement(), row.getData().action),
+
+		initialSort: [{ column: 'name', dir: 'asc' }],
+	});
+
+
+	table.on('dataLoaded', (data) => document.fonts.ready.then(() => renderAll(data)));
+	table.on('dataFiltered', (filters, rows) => renderAll(rows.map(row => row.getData())));
+</script>
+
+<script>
+	const ACTION_COLORS = { king: '#d4a72c', eat: '#3fa7d6', sell: '#8a8a8a' };
+	const fmt = (n) => n.toLocaleString('en-US');
+
+	function initChart(id) {
+		const el = document.getElementById(id);
+		const chart = echarts.init(el);
+		new ResizeObserver(() => chart.resize()).observe(el);
+		return chart;
+	}
+	const topChart = initChart('chart-top');
+	const actionsChart = initChart('chart-actions');
+
+	function renderCharts(items) {
+		// Text color and font come from the site, so the charts follow your theme
+		const style = getComputedStyle(document.body);
+		const base = { textStyle: { fontFamily: style.fontFamily, color: style.color } };
+
+		// Top 10 items to give to the King (gems excluded: their value depends on castle investment)
+		const top = items
+			.filter(i => i.action === 'king' && !UNUSABLE.has(i.name))
+			.sort((a, b) => b.localValue - a.localValue)
+			.slice(0, 10)
+			.reverse(); // the category axis is drawn bottom-up
+
+		topChart.setOption({
+			...base,
+			title: { text: 'Top 10 items to give to the King', left: 'center', textStyle: { color: style.color, fontSize: 18 } },
+			grid: { left: 10, right: 70, top: 50, bottom: 10, containLabel: true },
+			tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, valueFormatter: fmt },
+			xAxis: { type: 'value', show: false },
+			yAxis: {
+				type: 'category',
+				data: top.map(i => i.name),
+				axisTick: { show: false },
+				axisLine: { show: false },
+				axisLabel: { fontSize: 14, color: style.color },
+			},
+			series: [{
+				type: 'bar',
+				data: top.map(i => i.localValue),
+				barWidth: '65%',
+				barMaxWidth: 28,
+				itemStyle: { color: ACTION_COLORS.king, borderRadius: [0, 8, 8, 0] },
+				label: { show: true, position: 'right', fontSize: 14, color: style.color, formatter: p => fmt(p.value) },
+			}],
+		});
+
+		// Action distribution
+		const counts = { king: 0, eat: 0, sell: 0 };
+		items.forEach(i => counts[i.action]++);
+
+		actionsChart.setOption({
+			...base,
+			title: [
+				{ text: 'Best action per item', left: 'center', textStyle: { color: style.color, fontSize: 18 } },
+				{
+					text: String(items.length), subtext: 'items', left: 'center', top: '40%',
+					textStyle: { color: style.color, fontSize: 28 }, subtextStyle: { color: style.color, fontSize: 14 }
+				},
+			],
+			tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+			legend: { bottom: 0, textStyle: { color: style.color, fontSize: 14 } },
+			series: [{
+				type: 'pie',
+				radius: ['45%', '70%'],
+				center: ['50%', '50%'],
+				padAngle: 2,
+				itemStyle: { borderRadius: 8 },
+				label: { fontSize: 15, color: style.color, formatter: '{c}' },
+				data: Object.entries(ACTIONS)
+					.filter(([key]) => counts[key] > 0)
+					.map(([key, label]) => ({
+						name: label, value: counts[key], itemStyle: { color: ACTION_COLORS[key] },
+					})),
+			}],
+		});
+	}
+
+	const NEGATIVE_COLOR = '#e5484d';
+
+	const townsChart = initChart('chart-towns');
+	const scatterChart = initChart('chart-scatter');
+	const chart3d = initChart('chart-3d');
+
+	function getTheme() {
+		const style = getComputedStyle(document.body);
+		return {
+			color: style.color,
+			base: { textStyle: { fontFamily: style.fontFamily, color: style.color } },
+			title: (text) => ({ text, left: 'center', textStyle: { color: style.color, fontSize: 18 } }),
+		};
+	}
+
+	// Average local value per town (castle gems and the Black Diamond are not town products)
+
+	function renderTownsChart(items) {
+		const theme = getTheme();
+
+		const byTown = {};
+
+		items
+			.filter(i => !UNUSABLE.has(i.name))
+			.forEach(i => {
+				(byTown[i.acquisition] ??= []).push(i);
+			});
+
+		const towns = Object.entries(byTown)
+			.map(([name, list]) => ({
+				name,
+				list,
+				avg: Math.round(
+					list.reduce((sum, i) => sum + i.localValue, 0) / list.length
+				),
+				count: list.length
+			}))
+			.sort((a, b) => b.avg - a.avg);
+
+		// Number of towns to display
+		const limit = 10;
+		const displayed = towns.slice(0, limit).reverse();
+
+		townsChart.setOption({
+			...theme.base,
+
+			title: {
+				text: `Top ${Math.min(limit, towns.length)} towns by average local value`,
+				subtext: `${towns.length} towns · ${items.length} items`,
+				left: 'center',
+				textStyle: {
+					color: theme.color,
+					fontSize: 17
+				},
+				subtextStyle: {
+					color: theme.color,
+					fontSize: 12
+				}
+			},
+
+			grid: {
+				left: 15,
+				right: 65,
+				top: 75,
+				bottom: 20,
+				containLabel: true
+			},
+
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'shadow'
+				},
+				formatter: params => {
+					const t = displayed[params[0].dataIndex];
+
+					return `
+                    <b>${t.name}</b><br>
+                    Average local value: <b>${fmt(t.avg)}</b><br>
+                    Items: ${t.count}<br>
+                    <hr>
+                    ${t.list
+							.slice()
+							.sort((a, b) => b.localValue - a.localValue)
+							.map(i =>
+								`${i.name}: ${fmt(i.localValue)}`
+							)
+							.join('<br>')}
+                `;
+				}
+			},
+
+			xAxis: {
+				type: 'value',
+				axisLabel: {
+					color: theme.color,
+					formatter: fmt
+				},
+				splitLine: {
+					lineStyle: {
+						opacity: 0.15
+					}
+				}
+			},
+
+			yAxis: {
+				type: 'category',
+				data: displayed.map(t => t.name),
+				axisLabel: {
+					color: theme.color,
+					fontSize: 12
+				},
+				axisLine: {
+					show: false
+				},
+				axisTick: {
+					show: false
+				}
+			},
+
+			series: [{
+				type: 'bar',
+				data: displayed.map(t => ({
+					value: t.avg,
+					itemStyle: {
+						color: t.avg >= 0
+							? ACTION_COLORS.king
+							: NEGATIVE_COLOR,
+						borderRadius: t.avg >= 0
+							? [0, 5, 5, 0]
+							: [5, 0, 0, 5]
+					}
+				})),
+
+				barWidth: '60%',
+
+				label: {
+					show: true,
+					position: 'right',
+					color: theme.color,
+					fontSize: 12,
+					formatter: p => fmt(p.value)
+				},
+
+				markLine: {
+					silent: true,
+					symbol: 'none',
+					lineStyle: {
+						type: 'dashed',
+						color: theme.color,
+						opacity: 0.5
+					},
+					data: [{ xAxis: 0 }]
+				}
+			}],
+
+			animationDuration: 500
+		});
+	}
+
+
+	// Price / local value scatter plot + its 3D version
+	function renderScatterCharts(items) {
+		const theme = getTheme();
+		const byAction = (key) => items.filter(i => i.action === key);
+		const tip = (p) => `<b>${p.data.name}</b><br>Price: ${fmt(p.value[0])}<br>Local value: ${fmt(p.value[1])}`;
+
+		scatterChart.setOption({
+			...theme.base,
+			title: theme.title('Price vs local value'),
+			legend: { bottom: 0, textStyle: { color: theme.color, fontSize: 14 } },
+			grid: { left: 20, right: 30, top: 60, bottom: 70, containLabel: true },
+			tooltip: { trigger: 'item', formatter: tip },
+			xAxis: {
+				type: 'log', name: 'Price', nameLocation: 'middle', nameGap: 30,
+				axisLine: { onZero: false },
+				axisLabel: { color: theme.color, formatter: fmt },
+				splitLine: { lineStyle: { opacity: 0.15 } },
+			},
+			yAxis: {
+				type: 'value', name: 'Local value',
+				axisLabel: { color: theme.color, formatter: fmt },
+				splitLine: { lineStyle: { opacity: 0.15 } },
+			},
+			series: [
+				...Object.entries(ACTIONS).map(([key, label]) => ({
+					name: label,
+					type: 'scatter',
+					symbolSize: 13,
+					itemStyle: { color: ACTION_COLORS[key], opacity: 0.9 },
+					data: byAction(key).map(i => ({ name: i.name, value: [i.price, i.localValue] })),
+				})),
+				// Dashed line at 0: above it the King gives gold, below it he takes some
+				{
+					type: 'scatter', data: [], silent: true,
+					markLine: {
+						silent: true, symbol: 'none', label: { show: false },
+						lineStyle: { type: 'dashed', color: theme.color, opacity: 0.5 },
+						data: [{ yAxis: 0 }],
+					},
+				},
+			],
+		});
+
+		// In echarts-gl the Z axis is the vertical one: local value goes there
+		chart3d.setOption({
+			...theme.base,
+			title: theme.title('3D view (drag to rotate)'),
+			legend: { top: 36, textStyle: { color: theme.color, fontSize: 14 } },
+			tooltip: {
+				formatter: (p) => `<b>${p.data.name}</b><br>Price: ${fmt(p.value[0])}<br>Local value: ${fmt(p.value[2])}<br>ID: ${p.value[1]}`,
+			},
+			grid3D: {
+				boxWidth: 110, boxDepth: 80,
+				viewControl: { autoRotate: true, autoRotateSpeed: 6, distance: 200, alpha: 20 },
+				axisLine: { lineStyle: { color: theme.color } },
+				axisLabel: { textStyle: { color: theme.color, fontSize: 11 } },
+				axisPointer: { show: false },
+				splitLine: { lineStyle: { color: theme.color, opacity: 0.15 } },
+			},
+			xAxis3D: { type: 'log', name: 'Price' },
+			yAxis3D: { type: 'value', name: 'Item ID' },
+			zAxis3D: { type: 'value', name: 'Local value' },
+			series: Object.entries(ACTIONS).map(([key, label]) => ({
+				name: label,
+				type: 'scatter3D',
+				symbolSize: 9,
+				itemStyle: { color: ACTION_COLORS[key], opacity: 0.95 },
+				data: byAction(key).map(i => ({ name: i.name, value: [i.price, i.id, i.localValue] })),
+			})),
+		});
+	}
+
+	function renderAll(items) {
+		renderCharts(items);
+		renderTownsChart(items);
+		renderScatterCharts(items);
+	}
+</script>
+
 </html>

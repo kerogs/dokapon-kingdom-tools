@@ -1,0 +1,562 @@
+[
+	{
+		"id": 1,
+		"name": "Dried Kusaya",
+		"price": 200,
+		"localValue": -30600,
+		"acquisition": "Sumida"
+	},
+	{
+		"id": 2,
+		"name": "Ningyoyaki",
+		"price": 150,
+		"localValue": 17850,
+		"acquisition": "Sumida"
+	},
+	{
+		"id": 3,
+		"name": "Natto",
+		"price": 100,
+		"localValue": -38250,
+		"acquisition": "Sumida"
+	},
+	{
+		"id": 4,
+		"name": "Xishan Duck",
+		"price": 8000,
+		"localValue": 28050,
+		"acquisition": "Xishan"
+	},
+	{
+		"id": 5,
+		"name": "Shark Fin Soup",
+		"price": 11000,
+		"localValue": 33150,
+		"acquisition": "Xishan"
+	},
+	{
+		"id": 6,
+		"name": "Kimchi",
+		"price": 320,
+		"localValue": -20400,
+		"acquisition": "Bukhan"
+	},
+	{
+		"id": 7,
+		"name": "Dolsot Bibimbap",
+		"price": 1200,
+		"localValue": 15300,
+		"acquisition": "Bukhan"
+	},
+	{
+		"id": 8,
+		"name": "Dried Mango",
+		"price": 500,
+		"localValue": 10200,
+		"acquisition": "Jurong"
+	},
+	{
+		"id": 9,
+		"name": "Khan Combo",
+		"price": 2500,
+		"localValue": 21750,
+		"acquisition": "Uvs Nurr"
+	},
+	{
+		"id": 10,
+		"name": "Potato Juice",
+		"price": 3000,
+		"localValue": -17850,
+		"acquisition": "Ussuri"
+	},
+	{
+		"id": 11,
+		"name": "Caviar",
+		"price": 20000,
+		"localValue": 58650,
+		"acquisition": "Ussuri"
+	},
+	{
+		"id": 12,
+		"name": "Beef Stroganoff",
+		"price": 2200,
+		"localValue": 19200,
+		"acquisition": "Volga"
+	},
+	{
+		"id": 13,
+		"name": "Borscht",
+		"price": 2800,
+		"localValue": 11550,
+		"acquisition": "Volga"
+	},
+	{
+		"id": 14,
+		"name": "Kebab",
+		"price": 800,
+		"localValue": 15300,
+		"acquisition": "Tiphrates"
+	},
+	{
+		"id": 15,
+		"name": "Pierogi",
+		"price": 1400,
+		"localValue": 12750,
+		"acquisition": "Ural"
+	},
+	{
+		"id": 16,
+		"name": "Holy Curry",
+		"price": 1050,
+		"localValue": 22950,
+		"acquisition": "Moriah"
+	},
+	{
+		"id": 17,
+		"name": "Garonne Wine",
+		"price": 14000,
+		"localValue": 35700,
+		"acquisition": "Garonne"
+	},
+	{
+		"id": 18,
+		"name": "Cerdo Loco",
+		"price": 5500,
+		"localValue": 38250,
+		"acquisition": "Garonne"
+	},
+	{
+		"id": 19,
+		"name": "Truffles",
+		"price": 40000,
+		"localValue": 84150,
+		"acquisition": "Aniene"
+	},
+	{
+		"id": 20,
+		"name": "Pizza",
+		"price": 2500,
+		"localValue": 15300,
+		"acquisition": "Aniene"
+	},
+	{
+		"id": 21,
+		"name": "Tiramisu",
+		"price": 700,
+		"localValue": 38250,
+		"acquisition": "Aniene"
+	},
+	{
+		"id": 22,
+		"name": "Foie Gras",
+		"price": 18000,
+		"localValue": 51000,
+		"acquisition": "Balle"
+	},
+	{
+		"id": 23,
+		"name": "Bleu Cheese",
+		"price": 1600,
+		"localValue": -51000,
+		"acquisition": "Balle"
+	},
+	{
+		"id": 24,
+		"name": "Pistachio",
+		"price": 950,
+		"localValue": 5280,
+		"acquisition": "Athenaeum"
+	},
+	{
+		"id": 25,
+		"name": "Sachertorte",
+		"price": 4500,
+		"localValue": 45900,
+		"acquisition": "Danube"
+	},
+	{
+		"id": 26,
+		"name": "Bagel",
+		"price": 600,
+		"localValue": 7740,
+		"acquisition": "Danube"
+	},
+	{
+		"id": 27,
+		"name": "Frankfurters",
+		"price": 180,
+		"localValue": 12750,
+		"acquisition": "Pfennig"
+	},
+	{
+		"id": 28,
+		"name": "Roast Beef",
+		"price": 3800,
+		"localValue": 19950,
+		"acquisition": "Groat"
+	},
+	{
+		"id": 29,
+		"name": "Pickled Herring",
+		"price": 2200,
+		"localValue": -95000,
+		"acquisition": "Sterling"
+	},
+	{
+		"id": 30,
+		"name": "Seward Salmon",
+		"price": 1900,
+		"localValue": 14250,
+		"acquisition": "Stikine"
+	},
+	{
+		"id": 31,
+		"name": "Raw Oysters",
+		"price": 1200,
+		"localValue": 11550,
+		"acquisition": "Duwamish"
+	},
+	{
+		"id": 32,
+		"name": "King's Burger",
+		"price": 580,
+		"localValue": 25500,
+		"acquisition": "Allegheny"
+	},
+	{
+		"id": 33,
+		"name": "5th Street Bun",
+		"price": 150,
+		"localValue": 22950,
+		"acquisition": "Allegheny"
+	},
+	{
+		"id": 34,
+		"name": "Corn on the Cob",
+		"price": 200,
+		"localValue": 8580,
+		"acquisition": "Calumet"
+	},
+	{
+		"id": 35,
+		"name": "Hot Dog",
+		"price": 400,
+		"localValue": 22500,
+		"acquisition": "Calumet"
+	},
+	{
+		"id": 36,
+		"name": "Astronaut Food",
+		"price": 2600,
+		"localValue": -38250,
+		"acquisition": "Conroe"
+	},
+	{
+		"id": 37,
+		"name": "777 Steak",
+		"price": 4000,
+		"localValue": 45900,
+		"acquisition": "Hoover"
+	},
+	{
+		"id": 38,
+		"name": "Avocado",
+		"price": 1450,
+		"localValue": 12300,
+		"acquisition": "Zumpango"
+	},
+	{
+		"id": 39,
+		"name": "Taco",
+		"price": 900,
+		"localValue": 9720,
+		"acquisition": "Zumpango"
+	},
+	{
+		"id": 40,
+		"name": "Canal Banana",
+		"price": 300,
+		"localValue": 17400,
+		"acquisition": "Balboa"
+	},
+	{
+		"id": 41,
+		"name": "Worm Candy",
+		"price": 250,
+		"localValue": -76500,
+		"acquisition": "Balboa"
+	},
+	{
+		"id": 42,
+		"name": "Dried Oranges",
+		"price": 700,
+		"localValue": 13050,
+		"acquisition": "Orinoco"
+	},
+	{
+		"id": 43,
+		"name": "Churrasco",
+		"price": 2600,
+		"localValue": 43350,
+		"acquisition": "Amazon"
+	},
+	{
+		"id": 44,
+		"name": "Soybeans",
+		"price": 50,
+		"localValue": -38250,
+		"acquisition": "Granada"
+	},
+	{
+		"id": 45,
+		"name": "Mate Tea",
+		"price": 600,
+		"localValue": 11880,
+		"acquisition": "Granada"
+	},
+	{
+		"id": 46,
+		"name": "Chicha Morada",
+		"price": 250,
+		"localValue": 7030,
+		"acquisition": "Onicaxinal"
+	},
+	{
+		"id": 47,
+		"name": "Szechuan Shrimp",
+		"price": 1400,
+		"localValue": 10650,
+		"acquisition": "Villarrica"
+	},
+	{
+		"id": 48,
+		"name": "Quetzal Cola",
+		"price": 120,
+		"localValue": 16650,
+		"acquisition": "Villarrica"
+	},
+	{
+		"id": 49,
+		"name": "Piranha",
+		"price": 1500,
+		"localValue": 5580,
+		"acquisition": "Choqueyapu"
+	},
+	{
+		"id": 50,
+		"name": "Saltena",
+		"price": 1600,
+		"localValue": 10800,
+		"acquisition": "Choqueyapu"
+	},
+	{
+		"id": 51,
+		"name": "Polar Soup",
+		"price": 6500,
+		"localValue": 20100,
+		"acquisition": "Thule"
+	},
+	{
+		"id": 52,
+		"name": "Smoked Bird",
+		"price": 8000,
+		"localValue": 33150,
+		"acquisition": "Sermitsiaq"
+	},
+	{
+		"id": 53,
+		"name": "Kiviak",
+		"price": 3800,
+		"localValue": -89250,
+		"acquisition": "Faxafloi"
+	},
+	{
+		"id": 54,
+		"name": "Penguin Treat",
+		"price": 190,
+		"localValue": 11880,
+		"acquisition": "Sydkap"
+	},
+	{
+		"id": 55,
+		"name": "Congo Curry",
+		"price": 1800,
+		"localValue": -73950,
+		"acquisition": "Makuta"
+	},
+	{
+		"id": 56,
+		"name": "Pyramid Bread",
+		"price": 400,
+		"localValue": 10980,
+		"acquisition": "Gineih"
+	},
+	{
+		"id": 57,
+		"name": "Fried Scorpion",
+		"price": 1500,
+		"localValue": -63750,
+		"acquisition": "Dirham"
+	},
+	{
+		"id": 58,
+		"name": "Oasis Water",
+		"price": 800,
+		"localValue": 5200,
+		"acquisition": "Dirham"
+	},
+	{
+		"id": 59,
+		"name": "Ostrich Soup",
+		"price": 100,
+		"localValue": 12300,
+		"acquisition": "Florin"
+	},
+	{
+		"id": 60,
+		"name": "Fruit Juice",
+		"price": 420,
+		"localValue": 19200,
+		"acquisition": "Florin"
+	},
+	{
+		"id": 61,
+		"name": "White Ant",
+		"price": 80,
+		"localValue": -81600,
+		"acquisition": "Florin"
+	},
+	{
+		"id": 62,
+		"name": "Lagenes Cake",
+		"price": 300,
+		"localValue": 45900,
+		"acquisition": "Centime"
+	},
+	{
+		"id": 63,
+		"name": "Cape Catsup",
+		"price": 700,
+		"localValue": 7400,
+		"acquisition": "Rand"
+	},
+	{
+		"id": 64,
+		"name": "Meat of Hope",
+		"price": 5200,
+		"localValue": 51000,
+		"acquisition": "Rand"
+	},
+	{
+		"id": 65,
+		"name": "Koala Cookies",
+		"price": 500,
+		"localValue": 14100,
+		"acquisition": "Parramatta"
+	},
+	{
+		"id": 66,
+		"name": "Ulu Dumplings",
+		"price": 170,
+		"localValue": -45900,
+		"acquisition": "Yarra"
+	},
+	{
+		"id": 67,
+		"name": "Tropical Juice",
+		"price": 750,
+		"localValue": 22950,
+		"acquisition": "Lawley"
+	},
+	{
+		"id": 68,
+		"name": "Torochica Juice",
+		"price": 750,
+		"localValue": -22950,
+		"acquisition": "Lawley"
+	},
+	{
+		"id": 69,
+		"name": "Ayer's Candy",
+		"price": 390,
+		"localValue": 12750,
+		"acquisition": "Isa"
+	},
+	{
+		"id": 70,
+		"name": "Rice Noodles",
+		"price": 3400,
+		"localValue": 42150,
+		"acquisition": "Gravatt"
+	},
+	{
+		"id": 71,
+		"name": "Bonbon",
+		"price": 1460,
+		"localValue": 9540,
+		"acquisition": "Hutt"
+	},
+	{
+		"id": 72,
+		"name": "Gray Trout Sushi",
+		"price": 4400,
+		"localValue": 13200,
+		"acquisition": "Hutt"
+	},
+	{
+		"id": 73,
+		"name": "Jade",
+		"price": 50000,
+		"localValue": 30000,
+		"acquisition": "Khan's Castle"
+	},
+	{
+		"id": 74,
+		"name": "Ruby",
+		"price": 90000,
+		"localValue": 45000,
+		"acquisition": "Rhine Castle"
+	},
+	{
+		"id": 75,
+		"name": "Sapphire",
+		"price": 75000,
+		"localValue": 39000,
+		"acquisition": "Yukon Castle"
+	},
+	{
+		"id": 76,
+		"name": "Emerald",
+		"price": 80000,
+		"localValue": 42000,
+		"acquisition": "Cusco Castle"
+	},
+	{
+		"id": 77,
+		"name": "Tourmaline",
+		"price": 60000,
+		"localValue": 32000,
+		"acquisition": "Strom Castle"
+	},
+	{
+		"id": 78,
+		"name": "Diamond",
+		"price": 100000,
+		"localValue": 50000,
+		"acquisition": "Kalar Castle"
+	},
+	{
+		"id": 79,
+		"name": "Opal",
+		"price": 70000,
+		"localValue": 35000,
+		"acquisition": "Bathur Castle"
+	},
+	{
+		"id": 80,
+		"name": "Black Diamond",
+		"price": 90000,
+		"localValue": -50000,
+		"acquisition": "Rico Jr."
+	}
+]
