@@ -32,7 +32,7 @@ const BACKGROUND = [
     { id: 'dark',  name: 'Dark',  bg: '#141626', fg: '#f2f1fa' },
 ];
 
-const BG_DIR = '/assets/images/backgrounds/';
+const BG_DIR = '../../assets/images/backgrounds/';
 const WALLPAPER = [
     '0.png', 'Casino_Background.png', 'Casino_Cave_Background.png', 'Lava_Cave_Background.png',
     'Pyramid_Background.png', 'Snowfield_Background.png', 'Sunken_Shrine_Background.png',
