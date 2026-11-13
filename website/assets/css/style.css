@@ -29,8 +29,8 @@
   --primary-rgb: 194, 138, 16;
   --primary-fg: #241d10;
   --primary-fg-rgb: 36, 29, 16;
-  --primary-muted: #fbf1d9;
-  --primary-muted-rgb: 251, 241, 217;
+  --primary-muted: #3d3a34;
+  --primary-muted-rgb: 61, 58, 52;
   --ring: var(--primary);
   --ring-rgb: var(--primary-rgb);
   --filter: brightness(0) saturate(100%);
@@ -591,7 +591,7 @@ body {
   color: var(--foreground);
   min-width: 100dvw;
   min-height: 100dvh;
-  background-image: url("../images/backgrounds/0.png");
+  background-image: var(--bg-image, url("../images/backgrounds/0.png"));
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -602,6 +602,11 @@ body > .container {
   width: 1100px;
 }
 
+@media screen and (max-width: 1100px) {
+  body > .container {
+    width: calc(100dvw - 40px);
+  }
+}
 .text-dokapon {
   font-weight: 900;
   color: #ffd84d;
@@ -675,6 +680,15 @@ header nav ul li.icon svg {
   height: 1em;
   fill: var(--foreground);
 }
+header nav ul li.icon:hover {
+  background-color: var(--primary);
+}
+header nav ul li.icon:hover p {
+  color: var(--primary-fg);
+}
+header nav ul li.icon:hover svg {
+  fill: var(--primary-fg);
+}
 
 footer {
   color: var(--muted-fg);
@@ -696,7 +710,8 @@ footer a:hover {
 
 .content {
   padding: 20px;
-  background-color: #fff;
+  background-color: var(--background);
+  color: var(--foreground);
   height: calc(100dvh - 40px - 40px);
   display: flex;
   flex-direction: column;
@@ -751,7 +766,8 @@ aside ul li.link a:hover svg {
   filter: drop-shadow(1px 0 0 var(--primary)) drop-shadow(-1px 0 0 var(--primary)) drop-shadow(0 1px 0 var(--primary)) drop-shadow(0 -1px 0 var(--primary));
 }
 aside ul li.link.active {
-  color: var(--secondary);
+  color: var(--primary);
+  font-weight: bolder;
   text-decoration: underline;
 }
 aside ul li.link.active img,
@@ -880,4 +896,135 @@ aside ul li.link.active {
   border-radius: var(--radius-md);
   background-color: #5bd4fd;
   box-shadow: inset 0 2px 4px rgba(34, 92, 132, 0.45), inset 0 -1px 2px rgba(34, 92, 132, 0.8);
+}
+
+.settings {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  padding: 20px;
+  height: calc(100dvh - 40px);
+  width: 1100px;
+  position: relative;
+}
+.settings aside {
+  margin-top: 10dvh;
+  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+  background-color: #ffc159;
+  box-shadow: inset 0 0 14px 8px #eb931c;
+  height: 60dvh;
+  overflow-y: auto;
+  border-top: 8px solid #fded46;
+  border-left: 8px solid #fded46;
+  border-bottom: 8px solid #fded46;
+  position: sticky;
+  top: 20px;
+}
+.settings aside nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+}
+.settings aside button {
+  font: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #5a3a1a;
+  background: #fef594;
+  border: 1px solid #c48926;
+  box-shadow: inset 0 0 12px 4px #c48926;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 8px 4px;
+  cursor: pointer;
+}
+.settings aside button.active {
+  color: #5a3a1a;
+  background: #5cd8fb;
+  border: 1px solid #286aa4;
+  box-shadow: inset 0 0 12px 4px #286aa4;
+}
+.settings .settingsContainer {
+  color: #5a3a1a;
+  border-radius: var(--radius-xl);
+  background-color: #ffd06e;
+  box-shadow: inset 0 0 14px 8px #f09138;
+  border: 8px solid #fd8351;
+  display: flex;
+  flex-direction: column;
+}
+.settings .settingsContainer .settingsTitle {
+  background-color: #fff08c;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-bottom: 8px solid #fd8351;
+  text-align: center;
+  box-shadow: inset 0 0 14px 2px #f09138;
+}
+.settings .settingsContainer .settingsTitle h1 {
+  color: #fd8351;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.settings .settingsContainer #title {
+  text-align: center;
+  margin: 30px 0 50px;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  font-size: 26px;
+  color: #fffdf4;
+  -webkit-text-stroke: 4px #8a4b0f;
+  paint-order: stroke fill;
+}
+.settings .settingsContainer .settingsBody {
+  flex: 1;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  overflow-y: auto;
+}
+.settings .settingsContainer .settingsBody #primarycolors[hidden],
+.settings .settingsContainer .settingsBody #background[hidden],
+.settings .settingsContainer .settingsBody #wallpaper[hidden] {
+  display: none;
+}
+.settings .settingsContainer .settingsBody {
+  overflow: auto;
+}
+.settings .settingsContainer .settingsBody #primarycolors, .settings .settingsContainer .settingsBody #background, .settings .settingsContainer .settingsBody #wallpaper {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+}
+.settings .settingsContainer .settingsBody #primarycolors .primarycolors__item, .settings .settingsContainer .settingsBody #background .primarycolors__item, .settings .settingsContainer .settingsBody #wallpaper .primarycolors__item {
+  border-radius: var(--radius-md);
+  width: 100%;
+  aspect-ratio: 16/9;
+  position: relative;
+  cursor: pointer;
+}
+.settings .settingsContainer .settingsBody #primarycolors .primarycolors__item.active, .settings .settingsContainer .settingsBody #background .primarycolors__item.active, .settings .settingsContainer .settingsBody #wallpaper .primarycolors__item.active {
+  box-shadow: inset 0 0 14px 4px #f09138;
+}
+.settings .settingsContainer .settingsBody #primarycolors .primarycolors__item:hover, .settings .settingsContainer .settingsBody #background .primarycolors__item:hover, .settings .settingsContainer .settingsBody #wallpaper .primarycolors__item:hover {
+  box-shadow: inset 0 0 14px 4px #5cd8fb;
+}
+.settings .settingsContainer .settingsBody #primarycolors .primarycolors__item .info, .settings .settingsContainer .settingsBody #background .primarycolors__item .info, .settings .settingsContainer .settingsBody #wallpaper .primarycolors__item .info {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.settings .settingsContainer .settingsBody #primarycolors .primarycolors__item .info .muted, .settings .settingsContainer .settingsBody #background .primarycolors__item .info .muted, .settings .settingsContainer .settingsBody #wallpaper .primarycolors__item .info .muted {
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.settings .settingsContainer .settingsBody #wallpaper {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.settings .settingsContainer .settingsBody #wallpaper p {
+  text-shadow: 1px 1px 2px #000;
+}
+.settings .settingsContainer .settingsBody #wallpaper p.muted {
+  display: none;
 }

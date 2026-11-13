@@ -43,7 +43,7 @@
 	@include neutrals(#fbfbfe, #f4f4fb, #ffffff, #ffffff, #e0e1ee, #ecedf6, #666a8a, #14162a);
 	@include color-var(primary, #c28a10);
 	@include color-var(primary-fg, #241d10);
-	@include color-var(primary-muted, #fbf1d9);
+	@include color-var(primary-muted, #3d3a34);
 	@include alias-var(ring, primary);
 	--filter: brightness(0) saturate(100%);
 	--filter-prim: brightness(0) saturate(100%) invert(80%) sepia(33%) saturate(5178%) hue-rotate(0deg) brightness(80%)
