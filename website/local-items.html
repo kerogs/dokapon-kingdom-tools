@@ -194,12 +194,10 @@
 				field: 'name',
 				headerFilter: 'input',
 				headerFilterPlaceholder: 'Search...',
-				formatter: (cell) => {
+				formatter: cell => {
 					const name = cell.getValue();
-					const file = encodeURI(name.replace(/ /g, '_')).toLowerCase();
-					return `<img class="item-icon" src="./assets/images/game/items/${file}.webp"
-                    loading="lazy" alt=""
-                    onerror="this.style.visibility='hidden'"> ${name}`;
+					const file = encodeURI(name.replace(/ /g, '_')).replace(/(^|_)([a-z])/g, (_, s, c) => s + c.toUpperCase());
+					return `<img class="item-icon" src="./assets/images/game/items/${file}.webp" loading="lazy" alt="" onerror="this.style.visibility='hidden'"> ${name}`;
 				}
 			},
 
