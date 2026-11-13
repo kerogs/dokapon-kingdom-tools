@@ -179,8 +179,30 @@
 	}
 
 
+	// Optional region filter from the URL (?area=Asiana, ?area=Hallstatt, etc.)
+	const selectedArea = new URLSearchParams(window.location.search).get('area');
+
 	const table = new Tabulator('#items', {
 		ajaxURL: './assets/data/items.json',
+		ajaxRequestFunc: async (url, config, params) => {
+			const itemsResponse = await fetch(url);
+			if (!itemsResponse.ok) throw new Error('Unable to load items.json');
+			let items = await itemsResponse.json();
+
+			// When an area is specified, keep only items acquired in its listed towns.
+			if (selectedArea) {
+				const areasResponse = await fetch('./assets/data/areas.json');
+				if (!areasResponse.ok) throw new Error('Unable to load areas.json');
+				const areas = await areasResponse.json();
+				const towns = areas[selectedArea];
+
+				items = Array.isArray(towns)
+					? items.filter(item => towns.includes(item.acquisition))
+					: [];
+			}
+
+			return items;
+		},
 		ajaxResponse: (url, params, response) => computeActions(response),
 		layout: 'fitColumns',
 		pagination: true,

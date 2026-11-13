@@ -560,11 +560,13 @@ $stgs_settings_inner: #fff08c;
 					display: none;
 				}
 			}
-			
+
 			overflow: auto;
 
 			// optionsArea
-			#primarycolors, #background, #wallpaper {
+			#primarycolors,
+			#background,
+			#wallpaper {
 				margin: $paddingSafe;
 				display: grid;
 				grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -600,17 +602,51 @@ $stgs_settings_inner: #fff08c;
 				}
 			}
 
-			#wallpaper{
+			#wallpaper {
 				grid-template-columns: 1fr 1fr 1fr;
 
-				p{
+				p {
 					text-shadow: 1px 1px 2px #000;
 				}
 
-				p.muted{
+				p.muted {
 					display: none;
 				}
 			}
+		}
+	}
+}
+
+// ==========================================
+// Map
+// ==========================================
+.map {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 909/511;
+
+	img,
+	svg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	svg {
+		#areas > g > path {
+			opacity: .0;
+			transition:
+				opacity 0.2s ease,
+				stroke 0.2s ease;
+			cursor: pointer;
+		}
+
+		#areas > g:hover > path {
+			opacity: .4;
+			stroke: var(--primary);
+			stroke-width: 4px;
 		}
 	}
 }
