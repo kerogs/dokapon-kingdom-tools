@@ -107,6 +107,10 @@
 				<!-- ! Main -->
 				<main>
 
+					<div class="titleTool">
+						<h1 class="text-dokapon">Local Items</h1>
+					</div>
+
 					<!-- table -->
 					<div id="items"></div>
 
@@ -115,12 +119,10 @@
 							<div id="chart-top"></div>
 						</div>
 						<div class="right">
-							<div id="chart-actions"></div>
-						</div>
-						<div class="left">
 							<div id="chart-towns"></div>
 						</div>
-						<div class="right">
+
+						<div class="wide">
 							<div id="chart-scatter"></div>
 						</div>
 						<div class="wide">
@@ -295,7 +297,6 @@
 		return chart;
 	}
 	const topChart = initChart('chart-top');
-	const actionsChart = initChart('chart-actions');
 
 	function renderCharts(items) {
 		// Text color and font come from the site, so the charts follow your theme
@@ -329,36 +330,6 @@
 				barMaxWidth: 28,
 				itemStyle: { color: ACTION_COLORS.king, borderRadius: [0, 8, 8, 0] },
 				label: { show: true, position: 'right', fontSize: 14, color: style.color, formatter: p => fmt(p.value) },
-			}],
-		});
-
-		// Action distribution
-		const counts = { king: 0, eat: 0, sell: 0 };
-		items.forEach(i => counts[i.action]++);
-
-		actionsChart.setOption({
-			...base,
-			title: [
-				{ text: 'Best action per item', left: 'center', textStyle: { color: style.color, fontSize: 18 } },
-				{
-					text: String(items.length), subtext: 'items', left: 'center', top: '40%',
-					textStyle: { color: style.color, fontSize: 28 }, subtextStyle: { color: style.color, fontSize: 14 }
-				},
-			],
-			tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
-			legend: { bottom: 0, textStyle: { color: style.color, fontSize: 14 } },
-			series: [{
-				type: 'pie',
-				radius: ['45%', '70%'],
-				center: ['50%', '50%'],
-				padAngle: 2,
-				itemStyle: { borderRadius: 8 },
-				label: { fontSize: 15, color: style.color, formatter: '{c}' },
-				data: Object.entries(ACTIONS)
-					.filter(([key]) => counts[key] > 0)
-					.map(([key, label]) => ({
-						name: label, value: counts[key], itemStyle: { color: ACTION_COLORS[key] },
-					})),
 			}],
 		});
 	}

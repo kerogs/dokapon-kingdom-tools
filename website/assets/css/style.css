@@ -618,6 +618,16 @@ body > .container {
   paint-order: stroke fill;
 }
 
+.titleTool {
+  font-size: 20px;
+  text-align: center;
+  margin: 20px 0;
+  text-transform: uppercase;
+}
+.titleTool h1 {
+  -webkit-text-stroke: 0px #080808;
+}
+
 header nav {
   display: grid;
   grid-template-columns: 1fr 1fr;

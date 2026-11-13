@@ -73,6 +73,17 @@ body {
 	paint-order: stroke fill;
 }
 
+.titleTool{
+	font-size: 20px;
+	text-align: center;
+	margin: $paddingSafe 0;
+	text-transform: uppercase;
+
+	h1{
+		-webkit-text-stroke:0px #080808;
+	}
+}
+
 // ==========================================
 // Header
 // ==========================================
