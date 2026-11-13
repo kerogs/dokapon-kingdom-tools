@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/kerogs/dokapon-kingdom-tools/compare/v0.4.0...v0.4.1) (2026-11-13)
+
+
+### Bug Fixes
+
+* correct asset paths for GitHub Pages deployment ([22d1c32](https://github.com/kerogs/dokapon-kingdom-tools/commit/22d1c32eca19ec0a42fe2dae9516ed6f52843d5d))
+
 ## [0.4.0](https://github.com/kerogs/dokapon-kingdom-tools/compare/v0.3.0...v0.4.0) (2026-11-13)
 
 
