@@ -745,6 +745,9 @@ aside {
 }
 aside ul {
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 aside ul li.title {
   text-align: center;
