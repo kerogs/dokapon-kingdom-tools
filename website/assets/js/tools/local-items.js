@@ -58,11 +58,13 @@ function setActionClass(el, action) {
 }
 
 /**
- * Builds the icon file name of an item: "black diamond" -> "Black_Diamond".
+ * Builds the icon file name of an item: "king's crown" -> "Kings_Crown".
+ * Apostrophes are removed, spaces become underscores, each word is capitalized.
  * @param {string} name
  */
 const iconFile = name =>
-    encodeURI(name.replace(/ /g, '_')).replace(/(^|_)([a-z])/g, (_, sep, char) => sep + char.toUpperCase());
+    encodeURI(name.replace(/'/g, '').replace(/ /g, '_'))
+        .replace(/(^|_)([a-z])/g, (_, sep, char) => sep + char.toUpperCase());
 
 /* ========== Data ========== */
 
@@ -82,9 +84,9 @@ async function loadItems(url) {
 
 /**
  * Adds the best `action` to every item.
- *   1. king: the item raises the final score (positive local value)
+ *   1. king: the King pays more than the market does (local value > price)
  *   2. eat:  consumable and cheap, so selling would earn almost nothing
- *   3. sell: everything else (gold for equipment, or not consumable)
+ *   3. sell: everything else (the price is at least as good as the local value)
  *
  * The "cheap" threshold is computed on consumable items only.
  * @param {object[]} items
@@ -96,7 +98,7 @@ function computeActions(items) {
 
     return items.map(item => ({
         ...item,
-        action: item.localValue > 0 ? 'king'
+        action: item.localValue > item.price ? 'king'
               : isConsumable(item) && item.price <= cheapLimit ? 'eat'
               : 'sell',
     }));
