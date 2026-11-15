@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.6.0](https://github.com/kerogs/dokapon-kingdom-tools/compare/v0.5.0...v0.6.0) (2026-11-15)
+
+
+### Features
+
+* **map:** add decorative frame, style options for overlays and homepage characters ([40af70e](https://github.com/kerogs/dokapon-kingdom-tools/commit/40af70e1703e68119583f77cce30cada6ff7511e))
+* **map:** add the interactive map in Local Items page ([81b1291](https://github.com/kerogs/dokapon-kingdom-tools/commit/81b12919eb0a15862d5aa3b51f1cc5caec311006))
+
+
+### Bug Fixes
+
+* **map:** connect island to correct continent and rename a wrong named continent to Gunnbjorn ([e61c552](https://github.com/kerogs/dokapon-kingdom-tools/commit/e61c552beba0da9d4e62c0801e565754b4c75804))
+
 ## [0.5.0](https://github.com/kerogs/dokapon-kingdom-tools/compare/v0.4.1...v0.5.0) (2026-11-13)
 
 
