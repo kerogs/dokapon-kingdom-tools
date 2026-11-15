@@ -828,12 +828,9 @@ aside ul li.link.active {
 
 .chartsSep {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
-}
-.chartsSep #chart-top,
-.chartsSep #chart-actions {
-  height: 360px;
+  margin: 20px 0;
 }
 @media (max-width: 900px) {
   .chartsSep {
@@ -843,10 +840,15 @@ aside ul li.link.active {
 .chartsSep .wide {
   grid-column: 1/-1;
 }
-.chartsSep #chart-towns,
-.chartsSep #chart-scatter,
-.chartsSep #chart-3d {
+.chartsSep > div > div {
   height: 420px;
+}
+.chartsSep .style {
+  color: #5a3a1a;
+  border-radius: var(--radius-xl);
+  background-color: #ffd06e;
+  box-shadow: inset 0 0 14px 8px #f09138;
+  border: 8px solid #fd8351;
 }
 
 .tabulator {

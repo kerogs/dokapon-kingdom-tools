@@ -344,27 +344,41 @@ aside {
 // ==========================================
 // Charts
 // ==========================================
+$cartsep_foreground: #5a3a1a;
+$cartsep_aside_border: #fded46;
+$cartsep_aside_background: #ffc159;
+$cartsep_aside_background_shadow: #eb931c;
+$cartsep_aside_button_background: #fef594;
+$cartsep_aside_button_background_shadow: #c48926;
+$cartsep_active_background: #5cd8fb;
+$cartsep_active_background_shadow: #286aa4;
+$cartsep_settings_background: #ffd06e;
+$cartsep_settings_background_shadow: #f09138;
+$cartsep_settings_border: #fd8351;
+$cartsep_settings_inner: #fff08c;
 .chartsSep {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr)); // minmax(0,…) évite l'étirement infini
+	grid-template-columns: 1fr 1fr;
 	gap: $paddingSafe;
-
-	#chart-top,
-	#chart-actions {
-		height: 360px;
-	} // ECharts a besoin d'une hauteur définie
-
+	margin: $paddingSafe 0;
+	
 	@media (max-width: 900px) {
 		grid-template-columns: 1fr;
 	}
 	.wide {
 		grid-column: 1 / -1;
-	} // the towns chart spans both columns
+	}
 
-	#chart-towns,
-	#chart-scatter,
-	#chart-3d {
+	> div > div{
 		height: 420px;
+	}
+
+	.style {
+		color: $cartsep_foreground;
+		border-radius: var(--radius-xl);
+		background-color: $cartsep_settings_background;
+		box-shadow: inset 0 0 14px 8px $cartsep_settings_background_shadow;
+		border: 8px solid $cartsep_settings_border;
 	}
 }
 
