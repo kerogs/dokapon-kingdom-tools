@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.7.0](https://github.com/kerogs/dokapon-kingdom-tools/compare/v0.6.0...v0.7.0) (2026-11-21)
+
+
+### Features
+
+* **editor:** add a test version of the editor for dokapon kingdom saves ([000c627](https://github.com/kerogs/dokapon-kingdom-tools/commit/000c62738a0fef70526a90a871f5be2618f53536))
+* **items:** add item images and fix the best-action rule ([2f46a8c](https://github.com/kerogs/dokapon-kingdom-tools/commit/2f46a8c57fec31e7fa6874cf8da4d9a9f56aaab2))
+* **SCSS:** add save editor style ([9702034](https://github.com/kerogs/dokapon-kingdom-tools/commit/9702034fbf2e90b4642e64d413fb413b992b4d8e))
+
 ## [0.6.0](https://github.com/kerogs/dokapon-kingdom-tools/compare/v0.5.0...v0.6.0) (2026-11-15)
 
 
