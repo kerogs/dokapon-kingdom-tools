@@ -361,7 +361,7 @@ $cartsep_settings_inner: #fff08c;
 	grid-template-columns: 1fr 1fr;
 	gap: $paddingSafe;
 	margin: $paddingSafe 0;
-	
+
 	@media (max-width: 900px) {
 		grid-template-columns: 1fr;
 	}
@@ -369,7 +369,7 @@ $cartsep_settings_inner: #fff08c;
 		grid-column: 1 / -1;
 	}
 
-	> div > div{
+	> div > div {
 		height: 420px;
 	}
 
@@ -833,4 +833,485 @@ $stgs_settings_inner: #fff08c;
 		rotate: -5deg; // arrive sur son inclinaison finale
 		opacity: 1;
 	}
+}
+
+// ==========================================
+// Save Editor (import at the end of style.scss: @import "save-editor";)
+// Uses the site's gold panel palette from Settings / Tabulator.
+// ==========================================
+$se_fg: #5a3a1a;
+$se_bg: #ffd06e;
+$se_bg_shadow: #f09138;
+$se_border: #fd8351;
+$se_inner: #fff08c;
+$se_input: #fff18f;
+$se_btn: #fef594;
+$se_btn_shadow: #c48926;
+$se_blue: #5cd8fb;
+$se_blue_shadow: #286aa4;
+$se_dark: #2a1d0e;
+.content__inner > main {
+    min-width: 0;
+}
+.saveEditor {
+    display: flex;
+    flex-direction: column;
+    gap: $paddingSafe;
+    min-width: 0;
+    padding-bottom: $paddingSafe;
+    [hidden] {
+        display: none !important;
+    }
+// ---------- Panels ----------
+    .dkPanel {
+        color: $se_fg;
+        background-color: $se_bg;
+        border: 8px solid $se_border;
+        border-radius: var(--radius-xl);
+        box-shadow: inset 0 0 14px 8px $se_bg_shadow;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        min-width: 0;
+    }
+    .dkTitle {
+        text-align: center;
+        text-transform: uppercase;
+        font-family: "Titan One", "alexandria", sans-serif;
+        font-size: 22px;
+        letter-spacing: 1px;
+        color: #fffdf4;
+        -webkit-text-stroke: 4px #8a4b0f;
+        paint-order: stroke fill;
+    }
+    .dkSubTitle {
+        margin-top: 8px;
+        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: 900;
+    }
+    .dkHint,
+    .muted {
+        font-size: 12px;
+        opacity: 0.75;
+    }
+    .dkEmpty {
+        padding: 40px 0;
+        text-align: center;
+        font-weight: 700;
+        opacity: 0.7;
+    }
+// ---------- Status ----------
+    .dkStatus {
+        padding: 10px 16px;
+        border-radius: var(--radius-md);
+        border: 3px solid #080808;
+        box-shadow: 3px 3px 0 #080808;
+        font-weight: 700;
+        word-break: break-word;
+        &.is-ok {
+            background: var(--green);
+            color: var(--green-fg);
+        }
+        &.is-warn {
+            background: var(--yellow);
+            color: var(--yellow-fg);
+        }
+        &.is-err {
+            background: var(--red);
+            color: var(--red-fg);
+        }
+    }
+// ---------- Buttons ----------
+    .dkBtn {
+        font: inherit;
+        font-weight: 700;
+        font-size: 13px;
+        text-transform: uppercase;
+        color: $se_fg;
+        background: $se_btn;
+        border: none;
+        border-radius: var(--radius-md);
+        box-shadow: inset 0 0 12px 4px $se_btn_shadow;
+        padding: 9px 16px;
+        cursor: pointer;
+        transition: 0.15s;
+        &:hover:not(:disabled) {
+            background: $se_blue;
+            box-shadow: inset 0 0 12px 4px $se_blue_shadow;
+        }
+        &.active {
+            background: $se_blue;
+            box-shadow: inset 0 0 12px 4px $se_blue_shadow;
+        }
+        &:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+        &:focus-visible {
+            outline: 3px solid #080808;
+            outline-offset: 2px;
+        }
+        &--small {
+            padding: 5px 12px;
+            font-size: 12px;
+        }
+    }
+    .dkTabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+// ---------- Inputs ----------
+    .dkInput,
+    .tabulator-cell input,
+    .tabulator-cell select {
+        font: inherit;
+        color: #3a2a12;
+        background-color: $se_input;
+        border: none;
+        border-radius: var(--radius-sm);
+        box-shadow:
+            inset 0 2px 4px rgba(145, 90, 20, 0.45),
+            inset 0 -1px 2px rgba(255, 255, 200, 0.8);
+        padding: 7px 10px;
+        min-width: 0;
+        &:focus {
+            outline: 3px solid $se_blue;
+        }
+        &.is-modified {
+            background-color: #b9ecfb;
+        }
+        &[readonly] {
+            opacity: 0.65;
+        }
+    }
+    .dkCheck {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+    }
+    .dkChip {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        background: $se_inner;
+        box-shadow: inset 0 0 6px 1px $se_btn_shadow;
+        font-size: 12px;
+        font-weight: 700;
+        &.is-strong {
+            background: $se_blue;
+            box-shadow: inset 0 0 6px 1px $se_blue_shadow;
+        }
+    }
+    .dkToolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        .dkInput {
+            flex: 1 1 240px;
+            max-width: 420px;
+        }
+        &:empty {
+            display: none;
+        }
+    }
+    .dkChips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+// ---------- Drop zone ----------
+    .dkDrop {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        text-align: center;
+        padding: 26px 16px;
+        cursor: pointer;
+        border: 3px dashed $se_border;
+        border-radius: var(--radius-lg);
+        background: rgba(255, 240, 140, 0.55);
+        transition: 0.15s;
+        strong {
+            font-size: 17px;
+            text-transform: uppercase;
+        }
+        span {
+            font-size: 12px;
+            opacity: 0.75;
+        }
+        &:hover,
+        &.is-over,
+        &:focus-within {
+            border-color: $se_blue_shadow;
+            background: rgba(92, 216, 251, 0.45);
+        }
+    }
+    .dkFileInfo {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+// ---------- Default mode form ----------
+    .dkForm {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+    .dkPlayers {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 14px;
+    }
+    .dkCard {
+        background: rgba(255, 244, 168, 0.75);
+        border: 3px solid $se_border;
+        border-radius: var(--radius-lg);
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        min-width: 0;
+        h3 {
+            font-family: "Titan One", "alexandria", sans-serif;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: #fffdf4;
+            -webkit-text-stroke: 3px #8a4b0f;
+            paint-order: stroke fill;
+        }
+        h4 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+    }
+    .dkFields {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 10px;
+        &.stats {
+            grid-template-columns: repeat(5, 1fr);
+        }
+        &.stats4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+    .dkField {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        min-width: 0;
+        &.wide {
+            grid-column: 1 / -1;
+        }
+        label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .dkInput {
+            width: 100%;
+        }
+    }
+// ---------- Advanced mode ----------
+    .dkCode {
+        width: 100%;
+        height: 62vh;
+        min-height: 320px;
+        resize: vertical;
+        tab-size: 2;
+        white-space: pre;
+        overflow: auto;
+        font: 12.5px/19px ui-monospace, "Cascadia Code", Consolas, monospace;
+        color: #ffe9a8;
+        background: $se_dark;
+        border: 4px solid $se_border;
+        border-radius: var(--radius-md);
+        padding: 12px;
+        &:focus {
+            outline: 3px solid $se_blue;
+        }
+    }
+// ---------- Actions ----------
+    .dkActions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        @media (max-width: 760px) {
+            grid-template-columns: 1fr;
+        }
+        > div {
+            background: rgba(255, 244, 168, 0.6);
+            border: 3px solid $se_border;
+            border-radius: var(--radius-lg);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        h4 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+    }
+    .dkChanges {
+        background: rgba(255, 244, 168, 0.6);
+        border: 3px solid $se_border;
+        border-radius: var(--radius-lg);
+        padding: 10px 14px;
+        summary {
+            cursor: pointer;
+            font-weight: 700;
+        }
+        ul {
+            list-style: none;
+            margin-top: 8px;
+            max-height: 220px;
+            overflow: auto;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        code {
+            font-family: ui-monospace, Consolas, monospace;
+            background: $se_inner;
+            padding: 0 4px;
+            border-radius: 3px;
+        }
+        s {
+            opacity: 0.6;
+        }
+        .dkChanges__bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 8px;
+        }
+    }
+// ---------- Converter ----------
+    .dkConverters {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        @media (max-width: 760px) {
+            grid-template-columns: 1fr;
+        }
+    }
+    .dkConvert {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        .result {
+            min-height: 1.4em;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            &.is-ok {
+                color: #0d6b36;
+            }
+            &.is-err {
+                color: #b3141f;
+            }
+        }
+    }
+// ---------- Tabulator ----------
+    .dkTable {
+        min-width: 0;
+    }
+    .tabulator {
+        background-color: $se_input;
+        .tabulator-tableholder .tabulator-table {
+            background-color: $se_input;
+        }
+        .tabulator-row,
+        .tabulator-row\.tabulator-row-even,
+        .tabulator-row\.tabulator-row-odd {
+            background-color: transparent;
+            border: none;
+            min-height: 30px;
+            &:hover {
+                border-radius: var(--radius-md);
+                background-color: $se_blue;
+                box-shadow:
+                    inset 0 2px 4px rgba(34, 92, 132, 0.45),
+                    inset 0 -1px 2px rgba(34, 92, 132, 0.8);
+            }
+        }
+        .tabulator-row .tabulator-cell {
+            border: none;
+            padding: 6px 12px;
+            &.cellPath {
+                font: 12px ui-monospace, Consolas, monospace;
+                word-break: break-all;
+                white-space: normal;
+            }
+            &.cellHint {
+                font-size: 12px;
+                opacity: 0.7;
+            }
+            &.cellValue {
+                font-weight: 700;
+                cursor: text;
+            }
+            &.is-modified {
+                background: #b9ecfb;
+                color: #0b4f79;
+                box-shadow: inset 4px 0 0 $se_blue_shadow;
+            }
+            &.tabulator-editing {
+                padding: 2px 4px;
+                background: $se_blue;
+                input,
+                select {
+                    width: 100%;
+                    padding: 4px 6px;
+                }
+            }
+            .bool {
+                font-weight: 900;
+                &.true {
+                    color: var(--green);
+                }
+                &.false {
+                    color: var(--red);
+                }
+            }
+        }
+        .tabulator-row\.tabulator-group {
+            background: $se_btn;
+            color: #000;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 13px;
+            border-bottom: 2px solid $se_border;
+            padding: 6px 10px;
+            .count {
+                margin-left: 8px;
+                padding: 1px 8px;
+                border-radius: 999px;
+                background: $se_blue;
+                font-size: 11px;
+            }
+        }
+    }
 }
