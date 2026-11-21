@@ -7,7 +7,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Dokapon Kingdom Tools - City Value</title>
 
+	<!-- tabulator -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tabulator-tables@6/dist/css/tabulator_simple.min.css">
+
+	<!-- animate.css -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+	<!-- style -->
 	<link rel="stylesheet" href="./assets/css/style.css">
 
 	<link rel="shortcut icon" href="./assets/images/icon.webp" type="image/x-icon">
@@ -107,6 +113,14 @@
 								</p>
 							</a>
 						</li>
+						<li class="link">
+							<a href="./save-editor.html">
+								<p>
+									<img src="./assets/images/game/icons/Warp_Sprite.webp" alt="">
+									Save Editor
+								</p>
+							</a>
+						</li>
 					</ul>
 				</aside>
 
@@ -115,6 +129,26 @@
 
 				<!-- ! Main -->
 				<main>
+
+					<div class="titleTool animate__animated animate__tada">
+						<div class="titleTool__inner">
+							<h1 class="text-dokapon" id="titlePageCat">City Value</h1>
+						</div>
+					</div>
+
+					<!-- formAdd -->
+					<form action="" id="addCities">
+						<div class="inputGroup">
+							<img src="./assets/images/game/icons/Village_Sprite_SoF.webp" alt="">
+							<input type="text" name="cityName" id="cityName" placeholder="Type a city">
+						</div>
+					</form>
+
+					<div class="underConstruction">
+						<p>Area under construction.</p>
+					</div>
+
+					<div id="cities"></div>
 
 				</main>
 			</div>
@@ -129,6 +163,8 @@
 	</div>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/tabulator-tables@6/dist/js/tabulator.min.js"></script>
 <script src="./assets/js/main.js"></script>
+<script src="./assets/js/tools/city-value.js"></script>
 
 </html>
